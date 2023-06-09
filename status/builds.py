@@ -98,7 +98,7 @@ class lists:
         try:
             import ssl
             ssl_context = ssl._create_unverified_context()
-            reader = urllib.request.urlopen(req, context=_ssl_context)
+            reader = urllib.request.urlopen(req, context=ssl_context)
         except:
             ssl_context = None
         if ssl_context is None:
@@ -156,8 +156,11 @@ class lists:
             with open(self.data_filename, 'r', encoding='utf-8') as f:
                 self.archives = json.loads(f.read())
 
+    
     def save(self):
         if self.archives_dirty or True:
+            if not os.path.exists('data'):
+                os.makedirs('data')
             s = json.dumps(self.archives, sort_keys=True, indent=2)
             with open(self.data_filename, 'w', encoding='utf-8') as f:
                 f.write(s)
@@ -284,23 +287,25 @@ class emails:
 
 if __name__ == "__main__":
     mnts = [
-        '2023-January', #'2023-February', '2023-March'
+        '2023-January',  # '2023-February', '2023-March'
     ]
     months = {}
-    for mnt in mnts:
-        months[mnt] = { 'results': {} }
     try:
         t = lists()
-        for mnt in months:
+        months = {mnt: {} for mnt in mnts}
+        for mnt in mnts:
+            if mnt not in t.archives:
+                t.download(mnt)
             month = months[mnt]
-            #t.download(month)
             month['email'] = emails(mnt, t.file_name(mnt))
             month['email'].parse()
             print(month['email'])
             if month['email'].has_unknowns():
                 print(os.linesep.join(month['email'].list_unknowns()))
+            month['results'] = {}  # Initialize the 'results' dictionary
             month['results']['build'] = month['email'].build_results()
             print(month['results']['build'].failed_arch_builds())
+
     except:
         raise
     finally:
