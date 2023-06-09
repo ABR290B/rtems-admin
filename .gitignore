@@ -2,3 +2,7 @@ build
 .waf*
 .lock*
 *.pyc
+# Ignore the data/2023-January.txt file
+data/2023-January.txt
+data/2023-January.txt.gz
+months.json
