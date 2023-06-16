@@ -279,16 +279,16 @@ class emails:
 
 if __name__ == "__main__":
     mnts = [
-        '2022-November',
+        #'2022-November',
         '2022-December',
         '2023-January',
-        '2023-February',
+        #'2023-February',
         #'2023-March',
         #'2023-April',
         #'2023-May',
         #'2023-June'
     ]
-    months_data = []
+    years_data = []
     try:
         t = lists()
         for mnt in mnts:
@@ -307,20 +307,26 @@ if __name__ == "__main__":
             fails = len(build_results.fails)
 
             # Construct a summary table or data structure
-            summary_table = {
-                'Month': mnt.split('-')[1],
+            month_name = mnt.split('-')[1]
+            year = mnt.split('-')[0]
+            month_data = {
+                'Month': month_name,
                 'Passes': passes,
                 'Fails': fails
             }
-            month_data = {
-                'year': mnt.split('-')[0],
-                'data': [summary_table]
-            }
-            months_data.append(month_data)
+            year_data = next((data for data in years_data if data['year'] == year), None)
+            if year_data:
+                year_data['data'].append(month_data)
+            else:
+                year_data = {
+                    'year': year,
+                    'data': [month_data]
+                }
+                years_data.append(year_data)
 
 
         # Display the table in a web page or save it to a file
-        table_json = json.dumps(months_data, sort_keys=True, indent=2)
+        table_json = json.dumps(years_data, sort_keys=True, indent=2)
         print(table_json)
 
         with open('webpage/summary_table.json', 'w') as f:

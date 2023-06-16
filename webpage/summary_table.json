@@ -2,16 +2,6 @@
   {
     "data": [
       {
-        "Fails": 105,
-        "Month": "November",
-        "Passes": 628
-      }
-    ],
-    "year": "2022"
-  },
-  {
-    "data": [
-      {
         "Fails": 43,
         "Month": "December",
         "Passes": 494
@@ -25,16 +15,6 @@
         "Fails": 53,
         "Month": "January",
         "Passes": 617
-      }
-    ],
-    "year": "2023"
-  },
-  {
-    "data": [
-      {
-        "Fails": 52,
-        "Month": "February",
-        "Passes": 597
       }
     ],
     "year": "2023"

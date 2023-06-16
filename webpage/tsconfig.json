@@ -1,8 +1,8 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "lib": ["dom", "es5", "es2015.promise"],
-      "outDir": "dist"
-    }
+  "compilerOptions": {
+    "target": "es2015",
+    "lib": ["dom", "es2015", "es2016", "es2017", "es2018", "es2019", "es2020", "es2021", "es2022", "es2023"],
+    "outDir": "dist",
+    "strict": true
   }
-  
+}
