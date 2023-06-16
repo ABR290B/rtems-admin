@@ -53,16 +53,10 @@ def months(year, month):
     return mnths
 
 class lists:
-
     lists_base = 'https://lists.rtems.org'
     mailman_base = lists_base + '/pipermail'
     builds_base = mailman_base + '/build'
     builds_ext = '.txt'
-
-    #
-    # Archives stored in file with the follow path:
-    #  https://lists.rtems.org/2022-November.txt.gz
-    #
 
     def __init__(self, data_filename='data/months.json'):
         self.archives = {}
@@ -106,7 +100,7 @@ class lists:
         info = reader.info()
         load = False
         if month in self.archives:
-            archive = self.archives[month];
+            archive = self.archives[month]
             if os.path.exists(archive['file']):
                 if not self.check_checksum(month):
                     load = True
@@ -138,7 +132,7 @@ class lists:
                     have += chunk_size
                     percent = round((float(have) / size) * 100, 2)
                     if percent > 100:
-                        percent = 100;
+                        percent = 100
                     print('\r' + month + ': %0.0f%% ' % (percent), end='')
                 print()
             with gzip.open(archive['file'] + '.gz', 'rb') as gz:
@@ -166,7 +160,6 @@ class lists:
                 f.write(s)
 
 class results:
-
     def __init__(self, passes, fails):
         self.passes = passes
         self.fails = fails
@@ -194,7 +187,6 @@ class results:
 
 
 class emails:
-
     def __init__(self, month, mbox):
         self.month = month
         self.mbox = mailbox.mbox(mbox, create=False)
@@ -287,55 +279,53 @@ class emails:
 
 if __name__ == "__main__":
     mnts = [
+        '2022-November',
         '2022-December',
-        #'2023-January',
-        #'2023-February',
+        '2023-January',
+        '2023-February',
         #'2023-March',
-        '2023-April',
-        '2023-May',
-        '2023-June'
+        #'2023-April',
+        #'2023-May',
+        #'2023-June'
     ]
-    months = {}
+    months_data = []
     try:
         t = lists()
-        months = {mnt: {} for mnt in mnts}
         for mnt in mnts:
             if mnt not in t.archives:
                 t.download(mnt)
-            month = months[mnt]
-            month['email'] = emails(mnt, t.file_name(mnt))
-            month['email'].parse()
-            print(month['email'])
-            if month['email'].has_unknowns():
-                print(os.linesep.join(month['email'].list_unknowns()))
-            month['results'] = {}
-            month['results']['build'] = month['email'].build_results()
-            print(month['results']['build'].failed_arch_builds())
+            email_data = emails(mnt, t.file_name(mnt))
+            email_data.parse()
+            print(email_data)
+            if email_data.has_unknowns():
+                print(os.linesep.join(email_data.list_unknowns()))
+            build_results = email_data.build_results()
+            print(build_results.failed_arch_builds())
 
             # Calculate pass/fail counts for the month
-            passes = len(month['results']['build'].passes)
-            fails = len(month['results']['build'].fails)
+            passes = len(build_results.passes)
+            fails = len(build_results.fails)
 
             # Construct a summary table or data structure
             summary_table = {
-                'Month': mnt,
+                'Month': mnt.split('-')[1],
                 'Passes': passes,
                 'Fails': fails
             }
-            month['summary'] = summary_table
+            month_data = {
+                'year': mnt.split('-')[0],
+                'data': [summary_table]
+            }
+            months_data.append(month_data)
+
 
         # Display the table in a web page or save it to a file
-        table_data = [months[mnt]['summary'] for mnt in mnts]
-        table_json = json.dumps(table_data, sort_keys=True, indent=2)
+        table_json = json.dumps(months_data, sort_keys=True, indent=2)
+        print(table_json)
 
-        # Save the table as a JSON file
         with open('webpage/summary_table.json', 'w') as f:
             f.write(table_json)
 
-        # Display the table in the console
-        print(table_json)
 
-    except:
-        raise
-    finally:
-        del t
+    except Exception as e:
+        print(e)
