@@ -1,0 +1,22 @@
+[
+  {
+    "Fails": 43,
+    "Month": "2022-December",
+    "Passes": 494
+  },
+  {
+    "Fails": 156,
+    "Month": "2023-April",
+    "Passes": 415
+  },
+  {
+    "Fails": 217,
+    "Month": "2023-May",
+    "Passes": 432
+  },
+  {
+    "Fails": 0,
+    "Month": "2023-June",
+    "Passes": 16
+  }
+]

@@ -287,7 +287,13 @@ class emails:
 
 if __name__ == "__main__":
     mnts = [
-        '2023-January',  # '2023-February', '2023-March'
+        '2022-December',
+        #'2023-January',
+        #'2023-February',
+        #'2023-March',
+        '2023-April',
+        '2023-May',
+        '2023-June'
     ]
     months = {}
     try:
@@ -302,9 +308,32 @@ if __name__ == "__main__":
             print(month['email'])
             if month['email'].has_unknowns():
                 print(os.linesep.join(month['email'].list_unknowns()))
-            month['results'] = {}  # Initialize the 'results' dictionary
+            month['results'] = {}
             month['results']['build'] = month['email'].build_results()
             print(month['results']['build'].failed_arch_builds())
+
+            # Calculate pass/fail counts for the month
+            passes = len(month['results']['build'].passes)
+            fails = len(month['results']['build'].fails)
+
+            # Construct a summary table or data structure
+            summary_table = {
+                'Month': mnt,
+                'Passes': passes,
+                'Fails': fails
+            }
+            month['summary'] = summary_table
+
+        # Display the table in a web page or save it to a file
+        table_data = [months[mnt]['summary'] for mnt in mnts]
+        table_json = json.dumps(table_data, sort_keys=True, indent=2)
+
+        # Save the table as a JSON file
+        with open('webpage/summary_table.json', 'w') as f:
+            f.write(table_json)
+
+        # Display the table in the console
+        print(table_json)
 
     except:
         raise
