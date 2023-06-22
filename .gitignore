@@ -3,4 +3,4 @@ build
 .lock*
 *.pyc
 # Ignore the data folder
-/data/
+web/data/
