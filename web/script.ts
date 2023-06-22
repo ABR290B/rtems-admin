@@ -14,7 +14,7 @@ interface SummaryRow {
 // Function to fetch the JSON data and populate the table
 async function populateTable() {
   const cacheBuster = new Date().getTime(); // Generate a timestamp as the cache-buster
-  const url = `../summary_table.json?cache=${cacheBuster}`; // Append the cache-buster parameter to the URL
+  const url = `summary_table.json?cache=${cacheBuster}`; // Append the cache-buster parameter to the URL
 
   const response = await fetch(url);
   const data: SummaryData[] = await response.json();

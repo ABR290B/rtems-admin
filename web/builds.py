@@ -279,10 +279,10 @@ class emails:
 
 if __name__ == "__main__":
     mnts = [
-        #'2022-November',
+        '2022-November',
         '2022-December',
         '2023-January',
-        #'2023-February',
+        '2023-February',
         #'2023-March',
         #'2023-April',
         #'2023-May',
@@ -329,7 +329,7 @@ if __name__ == "__main__":
         table_json = json.dumps(years_data, sort_keys=True, indent=2)
         print(table_json)
 
-        with open('webpage/summary_table.json', 'w') as f:
+        with open('summary_table.json', 'w') as f:
             f.write(table_json)
 
 
