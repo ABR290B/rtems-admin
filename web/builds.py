@@ -267,7 +267,7 @@ class emails:
             else:
                 raise Exception('invalid build result: ' + rec['results'])
         return results(passes, fails)
-
+    
     def has_unknowns(self):
         return len(self.data['unknown']) != 0
 
@@ -279,10 +279,10 @@ class emails:
 
 if __name__ == "__main__":
     mnts = [
-        '2022-November',
-        '2022-December',
+        #'2022-November',
+        #'2022-December',
         '2023-January',
-        '2023-February',
+        #'2023-February',
         #'2023-March',
         #'2023-April',
         #'2023-May',
@@ -296,10 +296,12 @@ if __name__ == "__main__":
                 t.download(mnt)
             email_data = emails(mnt, t.file_name(mnt))
             email_data.parse()
+            print("=========EMAIL DATA==========")
             print(email_data)
             if email_data.has_unknowns():
-                print(os.linesep.join(email_data.list_unknowns()))
+                print("WHAT IS THIS??:  ",os.linesep.join(email_data.list_unknowns()))
             build_results = email_data.build_results()
+            print("==============Failed Arch Builds==============")
             print(build_results.failed_arch_builds())
 
             # Calculate pass/fail counts for the month
@@ -327,6 +329,7 @@ if __name__ == "__main__":
 
         # Display the table in a web page or save it to a file
         table_json = json.dumps(years_data, sort_keys=True, indent=2)
+        print("========================JSON TABLE FOR THE MONTH======================")
         print(table_json)
 
         with open('summary_table.json', 'w') as f:
@@ -334,4 +337,5 @@ if __name__ == "__main__":
 
 
     except Exception as e:
+        print("===========Exceptions===================")
         print(e)
