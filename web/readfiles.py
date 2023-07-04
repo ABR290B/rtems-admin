@@ -96,15 +96,37 @@ def tool_build_parse(tool_build_results):
 
     for entry in tool_build_results:
         subject = entry.get('Subject', '')
-        print("Subject:", subject)  # Print subject for debugging
+        #print("Subject:", subject)  # Print subject for debugging
         build_details = parse_subject(subject)
-        print("Build Details:", build_details)  # Print build details for debugging
+        #print("Build Details:", build_details)  # Print build details for debugging
         if build_details:
             entry_copy = entry.copy()
             entry_copy['Details'] = build_details
             tool_build_details.append(entry_copy)
 
     return tool_build_details
+
+def visualise_tool_results(tool_build_details):
+    host_summary = []
+
+    # Get unique hosts
+    hosts = set(entry['Host'] for entry in tool_build_details)
+
+    # Calculate summary for each host
+    for host in hosts:
+        host_entries = [entry for entry in tool_build_details if entry['Host'] == host]
+        total_entries = len(host_entries)
+        passed_entries = len([entry for entry in host_entries if entry['Details']['Result'] == 'PASSED'])
+        failed_entries = len([entry for entry in host_entries if entry['Details']['Result'] == 'FAILED'])
+
+        host_summary.append({
+            'Host': host,
+            'TotalEntries': total_entries,
+            'PassedEntries': passed_entries,
+            'FailedEntries': failed_entries
+        })
+
+    return host_summary
 
 script_path = os.path.abspath(__file__)
 path_list = script_path.split(os.sep)
@@ -126,3 +148,10 @@ output_file_path = 'web/json-files/tool_build_details.json'
 with open(output_file_path, 'w') as output_file:
     json.dump(tool_build_details, output_file, indent=4)
 print("Tool Build Details saved to:", output_file_path)
+host_tool = visualise_tool_results(tool_build_details)
+print(host_tool)
+output_file_path = 'web/json-files/host-tool.json'
+with open(output_file_path, 'w') as output_file:
+    json.dump(host_tool, output_file, indent=4)
+
+
