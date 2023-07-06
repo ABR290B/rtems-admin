@@ -107,6 +107,9 @@ def tool_build_parse(tool_build_results):
     return tool_build_details
 
 def visualise_tool_results(tool_build_details):
+    # Sort the tool_build_details by date
+    tool_build_details = sorted(tool_build_details, key=lambda entry: entry['Date'])
+
     host_summary = []
 
     # Get unique hosts
@@ -118,15 +121,32 @@ def visualise_tool_results(tool_build_details):
         total_entries = len(host_entries)
         passed_entries = len([entry for entry in host_entries if entry['Details']['Result'] == 'PASSED'])
         failed_entries = len([entry for entry in host_entries if entry['Details']['Result'] == 'FAILED'])
+        failed_archs = [entry['Details']['Arch'] for entry in host_entries if entry['Details']['Result'] == 'FAILED']
+
+        # Find the last occurrence of PASSED result for each arch
+        last_passed_entries = {}
+        for entry in reversed(host_entries):
+            if entry['Details']['Result'] == 'PASSED':
+                arch = entry['Details']['Arch']
+                if arch in failed_archs and arch not in last_passed_entries:
+                    last_passed_entries[arch] = entry
+
+        # Create Fixed and Unfixed lists
+        fixed_archs = [entry['Details']['Arch'] for entry in last_passed_entries.values()]
+        unfixed_archs = list(set(failed_archs) - set(fixed_archs))
 
         host_summary.append({
             'Host': host,
             'TotalEntries': total_entries,
             'PassedEntries': passed_entries,
-            'FailedEntries': failed_entries
+            'FailedEntries': failed_entries,
+            'FailedArchs': failed_archs,
+            'Fixed': fixed_archs,
+            'Unfixed': unfixed_archs
         })
 
     return host_summary
+
 
 script_path = os.path.abspath(__file__)
 path_list = script_path.split(os.sep)
