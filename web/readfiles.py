@@ -147,6 +147,33 @@ def visualise_tool_results(tool_build_details):
 
     return host_summary
 
+def Monthly_Build_Summary(tool_build_details):
+    month_build_summary = []
+
+    for entry in tool_build_details:
+        date = entry['Date'].split(',')[1].strip()
+        os = entry['Details']['OS']
+        arch = entry['Details']['Arch']
+        release = ""
+        if "/" in arch:
+            release, arch = arch.split("/", 1)
+
+        release = release.strip()
+        arch = arch.strip().split("/")[0]
+        result = entry['Details']['Result']
+
+        build_summary = {
+            'Date': date,
+            'OS': os,
+            'Arch': arch,
+            'Release': release,
+            'Result': result
+        }
+
+        month_build_summary.append(build_summary)
+
+    return month_build_summary
+
 
 script_path = os.path.abspath(__file__)
 path_list = script_path.split(os.sep)
@@ -174,4 +201,8 @@ output_file_path = 'web/json-files/host-tool.json'
 with open(output_file_path, 'w') as output_file:
     json.dump(host_tool, output_file, indent=4)
 
+month_build_summary_list = Monthly_Build_Summary(tool_build_details)
 
+output_file_path = 'web/visualization/public/month_build_summary.json'
+with open(output_file_path, 'w') as output_file:
+    json.dump(month_build_summary_list, output_file, indent=4)

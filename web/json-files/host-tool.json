@@ -1,18 +1,137 @@
 [
     {
-        "Host": "Linux-5.15.0-56-generic-x86_64-with-Ubuntu-22.04-jammy",
-        "TotalEntries": 63,
-        "PassedEntries": 60,
+        "Host": "Linux-3.10.0-1160.81.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core",
+        "TotalEntries": 21,
+        "PassedEntries": 20,
+        "FailedEntries": 1,
+        "FailedArchs": [
+            "6/rtems-x86_64"
+        ],
+        "Fixed": [],
+        "Unfixed": [
+            "6/rtems-x86_64"
+        ]
+    },
+    {
+        "Host": "Linux-3.10.0-1160.83.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core",
+        "TotalEntries": 37,
+        "PassedEntries": 15,
+        "FailedEntries": 22,
+        "FailedArchs": [
+            "6/rtems-sparc",
+            "6/rtems-arm",
+            "6/rtems-bfin",
+            "6/rtems-i386",
+            "6/rtems-lm32",
+            "6/rtems-m68k",
+            "6/rtems-mips",
+            "6/rtems-moxie",
+            "6/rtems-nios2",
+            "6/rtems-or1k",
+            "6/rtems-powerpc",
+            "6/rtems-sh",
+            "6/rtems-sparc64",
+            "6/rtems-v850",
+            "6/rtems-riscv",
+            "6/rtems-microblaze",
+            "6/rtems-aarch64",
+            "6/rtems-x86_64",
+            "6/rtems-mips",
+            "6/rtems-microblaze",
+            "6/rtems-x86_64",
+            "6/rtems-sparc"
+        ],
+        "Fixed": [
+            "6/rtems-aarch64",
+            "6/rtems-riscv",
+            "6/rtems-v850",
+            "6/rtems-sparc64",
+            "6/rtems-sh",
+            "6/rtems-powerpc",
+            "6/rtems-or1k",
+            "6/rtems-nios2",
+            "6/rtems-moxie",
+            "6/rtems-m68k",
+            "6/rtems-lm32",
+            "6/rtems-i386",
+            "6/rtems-bfin",
+            "6/rtems-arm",
+            "6/rtems-sparc"
+        ],
+        "Unfixed": [
+            "6/rtems-x86_64",
+            "6/rtems-microblaze",
+            "6/rtems-mips"
+        ]
+    },
+    {
+        "Host": "FreeBSD-12.2-RELEASE-p3-amd64-64bit-ELF",
+        "TotalEntries": 3,
+        "PassedEntries": 3,
+        "FailedEntries": 0,
+        "FailedArchs": [],
+        "Fixed": [],
+        "Unfixed": []
+    },
+    {
+        "Host": "Linux-3.10.0-1160.80.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core",
+        "TotalEntries": 85,
+        "PassedEntries": 82,
         "FailedEntries": 3,
         "FailedArchs": [
-            "6/rtems-microblaze",
-            "6/rtems-microblaze",
+            "6/rtems-x86_64",
+            "6/rtems-x86_64",
+            "6/rtems-x86_64"
+        ],
+        "Fixed": [
+            "6/rtems-x86_64"
+        ],
+        "Unfixed": []
+    },
+    {
+        "Host": "Linux-5.15.0-58-generic-x86_64-with-Ubuntu-22.04-jammy",
+        "TotalEntries": 21,
+        "PassedEntries": 20,
+        "FailedEntries": 1,
+        "FailedArchs": [
             "6/rtems-microblaze"
         ],
         "Fixed": [],
         "Unfixed": [
             "6/rtems-microblaze"
         ]
+    },
+    {
+        "Host": "CYGWIN_NT-10.0-19044-3.3.4-341.x86_64-x86_64-64bit-WindowsPE",
+        "TotalEntries": 40,
+        "PassedEntries": 38,
+        "FailedEntries": 2,
+        "FailedArchs": [
+            "devel/qemu",
+            "devel/qemu"
+        ],
+        "Fixed": [],
+        "Unfixed": [
+            "devel/qemu"
+        ]
+    },
+    {
+        "Host": "FreeBSD-13.1-RELEASE-p3-amd64-64bit-ELF",
+        "TotalEntries": 105,
+        "PassedEntries": 105,
+        "FailedEntries": 0,
+        "FailedArchs": [],
+        "Fixed": [],
+        "Unfixed": []
+    },
+    {
+        "Host": "FreeBSD-12.3-RELEASE-p6-amd64-64bit-ELF",
+        "TotalEntries": 125,
+        "PassedEntries": 125,
+        "FailedEntries": 0,
+        "FailedArchs": [],
+        "Fixed": [],
+        "Unfixed": []
     },
     {
         "Host": "Linux-4.18.0-408.el8.x86_64-x86_64-with-centos-8",
@@ -65,137 +184,18 @@
         ]
     },
     {
-        "Host": "Linux-3.10.0-1160.81.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core",
-        "TotalEntries": 21,
-        "PassedEntries": 20,
-        "FailedEntries": 1,
-        "FailedArchs": [
-            "6/rtems-x86_64"
-        ],
-        "Fixed": [],
-        "Unfixed": [
-            "6/rtems-x86_64"
-        ]
-    },
-    {
-        "Host": "FreeBSD-13.1-RELEASE-p3-amd64-64bit-ELF",
-        "TotalEntries": 105,
-        "PassedEntries": 105,
-        "FailedEntries": 0,
-        "FailedArchs": [],
-        "Fixed": [],
-        "Unfixed": []
-    },
-    {
-        "Host": "FreeBSD-12.3-RELEASE-p6-amd64-64bit-ELF",
-        "TotalEntries": 125,
-        "PassedEntries": 125,
-        "FailedEntries": 0,
-        "FailedArchs": [],
-        "Fixed": [],
-        "Unfixed": []
-    },
-    {
-        "Host": "Linux-3.10.0-1160.83.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core",
-        "TotalEntries": 37,
-        "PassedEntries": 15,
-        "FailedEntries": 22,
-        "FailedArchs": [
-            "6/rtems-sparc",
-            "6/rtems-arm",
-            "6/rtems-bfin",
-            "6/rtems-i386",
-            "6/rtems-lm32",
-            "6/rtems-m68k",
-            "6/rtems-mips",
-            "6/rtems-moxie",
-            "6/rtems-nios2",
-            "6/rtems-or1k",
-            "6/rtems-powerpc",
-            "6/rtems-sh",
-            "6/rtems-sparc64",
-            "6/rtems-v850",
-            "6/rtems-riscv",
-            "6/rtems-microblaze",
-            "6/rtems-aarch64",
-            "6/rtems-x86_64",
-            "6/rtems-mips",
-            "6/rtems-microblaze",
-            "6/rtems-x86_64",
-            "6/rtems-sparc"
-        ],
-        "Fixed": [
-            "6/rtems-aarch64",
-            "6/rtems-riscv",
-            "6/rtems-v850",
-            "6/rtems-sparc64",
-            "6/rtems-sh",
-            "6/rtems-powerpc",
-            "6/rtems-or1k",
-            "6/rtems-nios2",
-            "6/rtems-moxie",
-            "6/rtems-m68k",
-            "6/rtems-lm32",
-            "6/rtems-i386",
-            "6/rtems-bfin",
-            "6/rtems-arm",
-            "6/rtems-sparc"
-        ],
-        "Unfixed": [
-            "6/rtems-mips",
-            "6/rtems-x86_64",
-            "6/rtems-microblaze"
-        ]
-    },
-    {
-        "Host": "FreeBSD-12.2-RELEASE-p3-amd64-64bit-ELF",
-        "TotalEntries": 3,
-        "PassedEntries": 3,
-        "FailedEntries": 0,
-        "FailedArchs": [],
-        "Fixed": [],
-        "Unfixed": []
-    },
-    {
-        "Host": "Linux-3.10.0-1160.80.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core",
-        "TotalEntries": 85,
-        "PassedEntries": 82,
+        "Host": "Linux-5.15.0-56-generic-x86_64-with-Ubuntu-22.04-jammy",
+        "TotalEntries": 63,
+        "PassedEntries": 60,
         "FailedEntries": 3,
         "FailedArchs": [
-            "6/rtems-x86_64",
-            "6/rtems-x86_64",
-            "6/rtems-x86_64"
-        ],
-        "Fixed": [
-            "6/rtems-x86_64"
-        ],
-        "Unfixed": []
-    },
-    {
-        "Host": "Linux-5.15.0-58-generic-x86_64-with-Ubuntu-22.04-jammy",
-        "TotalEntries": 21,
-        "PassedEntries": 20,
-        "FailedEntries": 1,
-        "FailedArchs": [
+            "6/rtems-microblaze",
+            "6/rtems-microblaze",
             "6/rtems-microblaze"
         ],
         "Fixed": [],
         "Unfixed": [
             "6/rtems-microblaze"
-        ]
-    },
-    {
-        "Host": "CYGWIN_NT-10.0-19044-3.3.4-341.x86_64-x86_64-64bit-WindowsPE",
-        "TotalEntries": 40,
-        "PassedEntries": 38,
-        "FailedEntries": 2,
-        "FailedArchs": [
-            "devel/qemu",
-            "devel/qemu"
-        ],
-        "Fixed": [],
-        "Unfixed": [
-            "devel/qemu"
         ]
     }
 ]
