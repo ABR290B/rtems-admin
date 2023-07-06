@@ -1,44 +1,106 @@
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #efefef;
 }
 
-.title {
-  font-size: 24px;
+.app {
+  padding: 0 170px;
+}
+
+.top-section {
+  background: #ffffff;
+  height: 20vh;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-container img {
+  width: 150px;
+  height: auto;
+}
+
+.title-container {
+  text-align: center;
+}
+
+.main-heading {
+  font-size: 36px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.search-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
+.sub-heading {
+  font-size: 24px;
 }
 
-.table {
+.search-container {
+  text-align: right;
+}
+
+.search-label {
+  font-size: 20px;
+}
+
+.table-section {
+  padding-top: 30px;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table th,
-.table td {
-  padding: 12px;
-  border-bottom: 1px solid #ccc;
+th,
+td {
+  padding: 10px;
+  font-size: 18px;
   text-align: left;
+  border: 1px solid #efefef;
 }
 
-.table th {
+th {
   font-weight: bold;
-  background-color: #f2f2f2;
+  background-color: #38532f;
+  color: #ffffff;
 }
 
-.link {
-  color: blue;
-  text-decoration: underline;
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
 }
 
-.link:hover {
-  color: darkblue;
+tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  font-size: 18px;
+  padding: 8px 16px;
+  margin: 0 10px;
+  background-color: #ffffff;
+  border: 1px solid #efefef;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.page-number {
+  font-size: 18px;
+}
+
+.footer {
+  background-color: #38532f;
+  text-align: center;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 16px;
 }
