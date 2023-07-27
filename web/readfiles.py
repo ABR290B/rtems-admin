@@ -175,10 +175,21 @@ def Monthly_Build_Summary(tool_build_details):
     return month_build_summary
 
 
+def bsp_build(archives):
+    bspreports = {}
+    return bspreports
+
+def test_builds(archives):
+    testreports = {}
+    return testreports
+
+
+year_name = input("Please enter the year for which you wish to see the reports: ")
+month_name = input("Please enter the name of the month for which the report is to be generated: ")
 script_path = os.path.abspath(__file__)
 path_list = script_path.split(os.sep)
 script_directory = path_list[0:len(path_list)-2]
-rel_path = "data/2023-January.txt"
+rel_path = "data/"+ year_name+"-"+month_name+".txt"
 path = "/".join(script_directory) + "/" + rel_path
 
 # Read data from the file
@@ -191,7 +202,7 @@ tool_build_results, test_results, bsp_results = categorize_data(data)
 tool_build_details = tool_build_parse(tool_build_results)
 
 # Save parsed data to JSON file
-output_file_path = 'web/json-files/tool_build_details.json'
+output_file_path = 'web/json-files/tools/tool_build_report.json'
 with open(output_file_path, 'w') as output_file:
     json.dump(tool_build_details, output_file, indent=4)
 print("Tool Build Details saved to:", output_file_path)
@@ -203,6 +214,6 @@ with open(output_file_path, 'w') as output_file:
 
 month_build_summary_list = Monthly_Build_Summary(tool_build_details)
 
-output_file_path = 'web/visualization/public/month_build_summary.json'
+output_file_path = 'web/visualization/public/month_tool_build_report.json'
 with open(output_file_path, 'w') as output_file:
     json.dump(month_build_summary_list, output_file, indent=4)

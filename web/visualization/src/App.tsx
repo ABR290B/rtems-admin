@@ -22,7 +22,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('month_build_summary.json'); // Update with the correct path to your JSON file
+        const response = await fetch('month_tool_build_report.json'); // Update with the correct path to your JSON file
         const jsonData = await response.json();
         setData(jsonData);
       } catch (error) {
