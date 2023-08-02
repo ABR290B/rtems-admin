@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from download import months, download_archive  # Import the necessary functions from download.py
 
 
 def categorize_data(data):
@@ -46,21 +47,7 @@ def read_data_from_file(file_path):
 
     return data
 
-"""
-def parse_subject(subject):
-    regex = r'Build (\w+): (FAILED|PASSED) (\w+ \d+/\w+) on (\w+)-(\w+)'
-    match = re.match(regex, subject)
-    if match:
-        build_dict = {
-            'Type': match.group(1),
-            'Result': match.group(2),
-            'OS': match.group(3).split()[0],
-            'Arch': match.group(4),
-            'Release': match.group(5)
-        }
-        return build_dict
-    return None
-"""
+
 def parse_subject(subject):
     try:
         parts = subject.split(':')
@@ -184,36 +171,50 @@ def test_builds(archives):
     return testreports
 
 
-year_name = input("Please enter the year for which you wish to see the reports: ")
-month_name = input("Please enter the name of the month for which the report is to be generated: ")
-script_path = os.path.abspath(__file__)
-path_list = script_path.split(os.sep)
-script_directory = path_list[0:len(path_list)-2]
-rel_path = "data/"+ year_name+"-"+month_name+".txt"
-path = "/".join(script_directory) + "/" + rel_path
+def main():
+    try:
+        year = int(input("Please enter the year for which you wish to see the reports: "))
+        month_name = input("Please enter the name of the month for which the report is to be generated: ")
+        month = f"{year}-{month_name.capitalize()}"
 
-# Read data from the file
-data = read_data_from_file(path)
+        # Download the archive if necessary
+        download_archive(month)
 
-# Categorize the data
-tool_build_results, test_results, bsp_results = categorize_data(data)
+        script_path = os.path.abspath(__file__)
+        path_list = script_path.split(os.sep)
+        script_directory = path_list[0:len(path_list) - 2]
+        rel_path = f"data/{month}.txt"
+        path = "/".join(script_directory) + "/" + rel_path
 
-# Parse tool build results
-tool_build_details = tool_build_parse(tool_build_results)
+        # Read data from the file
+        data = read_data_from_file(path)
+        
+        # Categorize the data
+        tool_build_results, _, _ = categorize_data(data)
 
-# Save parsed data to JSON file
-output_file_path = 'web/json-files/tools/tool_build_report.json'
-with open(output_file_path, 'w') as output_file:
-    json.dump(tool_build_details, output_file, indent=4)
-print("Tool Build Details saved to:", output_file_path)
-host_tool = visualise_tool_results(tool_build_details)
-print(host_tool)
-output_file_path = 'web/json-files/host-tool.json'
-with open(output_file_path, 'w') as output_file:
-    json.dump(host_tool, output_file, indent=4)
+        # Parse tool build results
+        tool_build_details = tool_build_parse(tool_build_results)
 
-month_build_summary_list = Monthly_Build_Summary(tool_build_details)
+        # Save parsed data to JSON file
+        output_file_path = 'web/json-files/tools/tool_build_report.json'
+        with open(output_file_path, 'w') as output_file:
+            json.dump(tool_build_details, output_file, indent=4)
+        print("Tool Build Details saved to:", output_file_path)
 
-output_file_path = 'web/visualization/public/month_tool_build_report.json'
-with open(output_file_path, 'w') as output_file:
-    json.dump(month_build_summary_list, output_file, indent=4)
+        # Visualize tool build results and generate host summary
+        host_tool = visualise_tool_results(tool_build_details)
+        output_file_path = 'web/json-files/host-tool.json'
+        with open(output_file_path, 'w') as output_file:
+            json.dump(host_tool, output_file, indent=4)
+
+        # Generate and save the monthly build summary
+        month_build_summary_list = Monthly_Build_Summary(tool_build_details)
+        output_file_path = 'web/visualization/public/month_tool_build_report.json'
+        with open(output_file_path, 'w') as output_file:
+            json.dump(month_build_summary_list, output_file, indent=4)
+
+    except Exception as e:
+        print("Error:", e)
+
+if __name__ == "__main__":
+    main()
