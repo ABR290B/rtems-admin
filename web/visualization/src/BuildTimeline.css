@@ -1,0 +1,49 @@
+/* BuildTimeline.css */
+
+.timeline-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Styling for the timeline */
+  .rct-root {
+    border-left: 2px solid #ccc;
+    position: relative;
+    padding: 20px;
+  }
+  
+  .rct-header {
+    display: none; /* Hide the header */
+  }
+  
+  .rct-item {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+  
+  .rct-label {
+    font-weight: bold;
+  }
+  
+  .rct-content {
+    font-size: 14px;
+  }
+  
+  /* Styling for timeline events */
+  .rct-item.rct-item-passed {
+    background-color: #84FFA7;
+  }
+  
+  .rct-item.rct-item-failed {
+    background-color: #FF8484;
+  }
+  
+  /* Custom styling for timeline elements */
+  .rct-bar {
+    background-color: #ccc;
+  }
+  

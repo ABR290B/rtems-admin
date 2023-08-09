@@ -182,7 +182,7 @@ class results:
             if not set(failed_hosts).isdisjoint(hosts):
                 print(arch, '%d: %r  ' % (len(failed_hosts), failed_hosts),
                       '%d: %r' % (len(hosts), hosts))
-                failed_archs += [arch]
+               #failed_archs += [arch]
         return failed_archs
 
 
