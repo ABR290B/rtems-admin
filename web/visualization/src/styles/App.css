@@ -1,0 +1,127 @@
+/* App.css */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #efefef;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Section 1 */
+.top-section {
+  background: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-container img {
+  width: 200px;
+  height: 150px;
+}
+
+.main-heading {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.sub-heading {
+  font-size: 32px;
+  margin: 0;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-label {
+  font-size: 24px;
+  margin-right: 1rem;
+}
+
+#searchInput {
+  font-size: 24px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+/* Section 2 */
+.table-section {
+  margin-top: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  font-size: 24px;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+  background: #38532F;
+  color: white;
+}
+
+td {
+  background: white;
+  border: 1px solid #efefef;
+}
+
+/* Result cell colors */
+td:nth-child(5) {
+  background: #84FFA7; /* PASSED */
+}
+
+td[data-result="FAILED"] {
+  background: #FF8484; /* FAILED */
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pagination-btn {
+  font-size: 24px;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background: #38532F;
+  color: white;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.page-number {
+  font-size: 24px;
+  margin: 0 1rem;
+}
+
+/* Footer */
+.footer {
+  background: #38532F;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.footer p {
+  font-size: 20px;
+  margin: 0;
+}
