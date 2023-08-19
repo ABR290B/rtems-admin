@@ -302,7 +302,66 @@ def test_report(message_id, file_path):
         print("An error occurred:", e)
         return None
 
+def bsp_parse(bsp_results, file_path):
+    bsp_details = []
 
+    for entry in bsp_results:
+        message_id = entry.get('Message-ID', '')
+        bsp_data = bsp_report(message_id, file_path)
+        if bsp_data:
+            bsp_details.append(bsp_data)
+    
+    return bsp_details
+
+def bsp_report(message_id, file_path):
+    try:
+        with open(file_path, 'r') as archive_file:
+            archive_data = archive_file.read()
+
+            # Locate the start index of the message ID value
+            message_id_idx = archive_data.find(message_id)
+            if message_id_idx == -1:
+                print(f"Message-ID '{message_id}' not found in the archive.")
+                return None
+            
+            # Locate the start index of the message section
+            start_idx = archive_data.rfind("Message-ID:", 0, message_id_idx)
+
+            # Locate the end index of the message section
+            end_idx = archive_data.find("Warnings Report", start_idx)
+            if end_idx == -1:
+                end_idx = len(archive_data)
+
+            # Extract the content of the located section
+            message_content = archive_data[start_idx:end_idx].strip()
+
+            # Use regular expressions to extract the failure information
+            pattern = re.compile(r"(\d+) (\w+(?:-\w+)*) (.+) build:\n([\s\S]*?)(?=\d+ \w+(?:-\w+)*)", re.MULTILINE)
+            matches = pattern.findall(message_content)
+
+            # Initialize the dictionary to store failure categories and their details
+            bsp_dict = {
+                "debug_failures": [],
+                "no_posix_failures": [],
+                "posix_failures": [],
+                "posix_debug_failures": [],
+                "posix_profiling_failures": [],
+                "profiling_failures": []
+            }
+
+            # Loop through the matched failure sections and populate the dictionary
+            for match in matches:
+                failure_number, bsp_type, _, failure_details = match
+                bsp_category = f"{bsp_type}_failures"
+                bsp_dict[bsp_category].append(f"{failure_number} {bsp_type} {failure_details}")
+
+            return bsp_dict
+        
+    except Exception as e:
+        print("An error occurred:", e)
+        return None
+
+    
 def visualise_tool_results(tool_build_details):
     # Sort the tool_build_details by date
     tool_build_details = sorted(tool_build_details, key=lambda entry: entry['Date'])
@@ -401,6 +460,14 @@ def main():
         with open(output_file_path, 'w') as output_file:
             json.dump(test_details, output_file, indent=4)
         print("Test Details saved to:", output_file_path)
+
+        #Parse BSP Results
+        bsp_details = bsp_parse(bsp_results, path)
+        output_file_path = 'web/json-files/bsp/bsp_report.json'
+        with open(output_file_path, 'w') as output_file:
+            json.dump(bsp_details, output_file, indent=4)
+        print("BSP Details saved to:", output_file_path)
+
         # Save parsed data to JSON file
         output_file_path = 'web/json-files/tools/tool_build_report.json'
         with open(output_file_path, 'w') as output_file:
@@ -415,7 +482,7 @@ def main():
 
         # Generate and save the monthly build summary
         month_build_summary_list = Monthly_Build_Summary(tool_build_details)
-        output_file_path = 'web/visualization/public/month_tool_build_report.json'
+        output_file_path = 'web/visualization/public/data/month_tool_build_report.json'
         with open(output_file_path, 'w') as output_file:
             json.dump(month_build_summary_list, output_file, indent=4)
 
