@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/App.css';
 import TestReportsPage from './TestReportsPage';
+import YearSummaryPage from './yearsummary';
 
 interface DataItem {
   Date: string;
